@@ -2,16 +2,27 @@
 import { Form, Button, Container, Card } from "react-bootstrap";
 import { login } from "../helpers/queries";
 import {useForm} from 'react-hook-form'
+import Swal from "sweetalert2";
 
-
-const Login = () => {
+const Login = ({setUsuarioLogueado}) => {
 
   const {register,handleSubmit, formState:{errors},reset} = useForm()
 
-  login()
-
+  
   const onSubmit = (usuario) =>{
-    console.log(usuario)
+    login(usuario).then((respuesta)=>{
+      console.log(respuesta)
+      if(respuesta){
+        sessionStorage.setItem("usuario",JSON.stringify(respuesta))
+        setUsuarioLogueado(respuesta)
+      }else{
+        Swal.fire(
+          'Ocurrio un error!',
+          'El email o usuario es incorrecto',
+          'error'
+        )
+      }
+    })
   }
 
   return (

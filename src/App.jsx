@@ -11,16 +11,19 @@ import Administrador from "./components/views/Administrador";
 import { BrowserRouter,Routes,Route } from "react-router-dom";
 import Registro from './components/views/Registro'
 import Login from './components/views/Login'
+import { useState } from "react";
 
 function App() {
+  const [usuarioLogueado, setUsuarioLogueado] = useState({})
+
   return (
     <>
     <BrowserRouter>
-    <Menu/>
+    <Menu usuarioLogueado={usuarioLogueado} setUsuarioLogueado={setUsuarioLogueado}/>
       <Routes>
         <Route exact path="/" element={<Inicio/>}/>
         <Route exact path="/registro" element={<Registro/>}/>
-        <Route exact path="/login" element={<Login/>}/>
+        <Route exact path="/login" element={<Login/>} usuarioLogueado={usuarioLogueado} setUsuarioLogueado={setUsuarioLogueado}/>
         <Route exact path="/detalle" element={<DetalleProducto/>}/>
         <Route exact path="/administrador" element={<Administrador/>}/>
         <Route exact path="/administrador/crear-producto" element={<CrearProducto/>}/>
