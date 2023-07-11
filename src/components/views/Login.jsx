@@ -13,7 +13,7 @@ const Login = ({setUsuarioLogueado}) => {
   const onSubmit = (usuario)=>{
     login(usuario).then((respuesta)=>{
       console.log(respuesta)
-      if(respuesta){
+      if(respuesta && respuesta.nombreUsuario){
         //guardar mi usuario en session o localstorage.
         sessionStorage.setItem('usuario', JSON.stringify(respuesta));
         setUsuarioLogueado(respuesta);
@@ -22,7 +22,7 @@ const Login = ({setUsuarioLogueado}) => {
         //mostrar un mensaje  de error
         Swal.fire(
           'Ocurrio un error',
-          'El email o usuario son erroneos',
+          'El email o password son erroneos',
           'error'
         )
       }
@@ -58,7 +58,7 @@ const Login = ({setUsuarioLogueado}) => {
               <Form.Control
                 type="password"
                 placeholder="Password"
-               {...register("password",{
+               {...register("contrasenia",{
                 required:"El password es un dato obligatorio",
                 pattern:{
                   value: /^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/,
